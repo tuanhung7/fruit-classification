@@ -1,8 +1,8 @@
+streamlit
 requests
 streamlit
 numpy
+opencv-python
 Pillow
 flask
-keras
 tensorflow
-opencv-python
