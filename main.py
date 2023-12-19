@@ -11,56 +11,19 @@ from keras.utils import img_to_array, load_img
 from PIL import Image
 
 # Load the model and labels
-model = load_model('87.h5')
-labels = {
-    0: "apple",
-    1: "avocado",
-    2: "banana",
-    3: "cucumber",
-    4: "dragonfruit",
-    5: "durian",
-    6: "grape",
-    7: "guava",
-    8: "kiwi",
-    9: "lemon",
-    10: "lychee",
-    11: "mango",
-    12: "orange",
-    13: "papaya",
-    14: "pear",
-    15: "pineapple",
-    16: "pomegranate",
-    17: "strawberry",
-    18: "tomato",
-    19: "watermelon",
-}
+model = load_model('FV.h5')
+labels = {0: 'apple', 1: 'banana', 2: 'beetroot', 3: 'bell pepper', 4: 'cabbage', 5: 'capsicum', 6: 'carrot',
+          7: 'cauliflower', 8: 'chilli pepper', 9: 'corn', 10: 'cucumber', 11: 'eggplant', 12: 'garlic', 13: 'ginger',
+          14: 'grapes', 15: 'jalepeno', 16: 'kiwi', 17: 'lemon', 18: 'lettuce',
+          19: 'mango', 20: 'onion', 21: 'orange', 22: 'paprika', 23: 'pear', 24: 'peas', 25: 'pineapple',
+          26: 'pomegranate', 27: 'potato', 28: 'raddish', 29: 'soy beans', 30: 'spinach', 31: 'sweetcorn',
+          32: 'sweetpotato', 33: 'tomato', 34: 'turnip', 35: 'watermelon'}
 
-
-def resize_image(img_path, size=(224, 224)):
-    """This function resize the image to square shape and save it to the same path."""
-    img = cv2.imread(img_path)
-    h, w = img.shape[:2]
-    c = img.shape[2] if len(img.shape) > 2 else 1
-    if h == w:
-        return cv2.resize(img, size, cv2.INTER_AREA)
-
-    dif = h if h > w else w
-
-    interpolation = (
-        cv2.INTER_AREA if dif > (size[0] + size[1]) // 2 else cv2.INTER_CUBIC
-    )
-
-    x_pos = (dif - w) // 2
-    y_pos = (dif - h) // 2
-
-    if len(img.shape) == 2:
-        mask = np.zeros((dif, dif), dtype=img.dtype)
-        mask[y_pos : y_pos + h, x_pos : x_pos + w] = img[:h, :w]
-    else:
-        mask = np.zeros((dif, dif, c), dtype=img.dtype)
-        mask[y_pos : y_pos + h, x_pos : x_pos + w, :] = img[:h, :w, :]
-    mask = cv2.resize(mask, size, interpolation)
-    cv2.imwrite(img_path, mask)
+fruits = ['Apple', 'Banana', 'Bello Pepper', 'Chilli Pepper', 'Grapes', 'Jalepeno', 'Kiwi', 'Lemon', 'Mango', 'Orange',
+          'Paprika', 'Pear', 'Pineapple', 'Pomegranate', 'Watermelon']
+vegetables = ['Beetroot', 'Cabbage', 'Capsicum', 'Carrot', 'Cauliflower', 'Corn', 'Cucumber', 'Eggplant', 'Ginger',
+              'Lettuce', 'Onion', 'Peas', 'Potato', 'Raddish', 'Soy Beans', 'Spinach', 'Sweetcorn', 'Sweetpotato',
+              'Tomato', 'Turnip']
 
 
 def fetch_calories(prediction):
