@@ -1,16 +1,15 @@
-import hashlib
 import io
 import os
+import uuid
 
 import cv2
 import numpy as np
 import requests
 import streamlit as st
-from keras.models import load_model
+import tensorflow as tf
+from keras.models import Model, load_model
 from keras.utils import img_to_array, load_img
 from PIL import Image
-import tensorflow as tf
-from keras.models import Model
 
 # Load the model and labels
 model = load_model('87.h5')
